@@ -1,144 +1,178 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Coming Soon — Sekandar</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sekandar — The Narrative</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;600;800&family=JetBrains+Mono&display=swap" rel="stylesheet" />
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --glass: rgba(255, 255, 255, 0.02);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --liquid-blur: blur(60px);
+        }
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            margin: 0;
+            overflow-x: hidden;
+            cursor: none;
+        }
 
-    body {
-      font-family: Inter, sans-serif;
-      background: #000;
-      color: #fff;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 32px;
-    }
+        /* LIQUID GLASS ARCHITECTURE */
+        .glass-panel {
+            background: var(--glass);
+            backdrop-filter: var(--liquid-blur) saturate(200%);
+            -webkit-backdrop-filter: var(--liquid-blur) saturate(200%);
+            border: 1px solid var(--glass-border);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
 
-    .container {
-      max-width: 960px;
-      width: 100%;
-    }
+        /* WHITE GLOW BUTTON */
+        .btn-glow {
+            padding: 16px 36px;
+            border-radius: 100px;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.15);
+            transition: all 0.4s ease;
+            color: white;
+            display: inline-block;
+        }
 
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 96px;
-    }
+        .btn-glow:hover {
+            background: #fff !important;
+            color: #000 !important;
+            box-shadow: 0 0 50px 15px rgba(255, 255, 255, 0.45);
+            transform: translateY(-5px);
+        }
 
-    .logo {
-      font-size: 14px;
-      letter-spacing: 0.2em;
-      font-weight: 600;
-    }
+        /* CURSOR */
+        #cursor {
+            position: fixed;
+            width: 20px; height: 20px;
+            background: #fff;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            transition: transform 0.15s ease-out;
+        }
 
-    .status {
-      font-family: "JetBrains Mono", monospace;
-      font-size: 12px;
-      color: #888;
-    }
+        .split-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 100vh;
+            gap: 24px;
+            padding: 24px;
+        }
 
-    h1 {
-      font-size: clamp(2.5rem, 6vw, 5rem);
-      font-weight: 500;
-      line-height: 1;
-      margin-bottom: 32px;
-    }
+        .text-refraction {
+            background: linear-gradient(180deg, #fff 0%, rgba(255, 255, 255, 0.3) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-    h1 span {
-      color: #777;
-    }
+        .description-text {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: #888;
+            font-weight: 300;
+        }
 
-    p {
-      max-width: 480px;
-      font-size: 18px;
-      line-height: 1.6;
-      color: #aaa;
-      margin-bottom: 64px;
-    }
-
-    .divider {
-      height: 1px;
-      background: #222;
-      margin: 64px 0;
-    }
-
-    footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-family: "JetBrains Mono", monospace;
-      font-size: 12px;
-      color: #666;
-      gap: 24px;
-      flex-wrap: wrap;
-    }
-
-    footer a {
-      color: #aaa;
-      text-decoration: none;
-    }
-
-    footer a:hover {
-      color: #fff;
-    }
-
-    @media (max-width: 600px) {
-      header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 16px;
-        margin-bottom: 64px;
-      }
-    }
-  </style>
+        @media (max-width: 1024px) {
+            .split-layout { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
 <body>
 
-  <div class="container">
+    <div id="cursor"></div>
 
-    <header>
-      <div class="logo">SEKANDAR</div>
-      <div class="status">COMING SOON</div>
-    </header>
+    <nav class="fixed top-0 w-full z-50 px-10 py-10">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="font-black tracking-[0.5em] text-[11px] opacity-40">SEKANDAR</div>
+            <button onclick="window.open('https://wa.me/971564735275')" class="btn-glow">Inquiry</button>
+        </div>
+    </nav>
 
-    <main>
-      <h1>
-        Something <span>intentional</span><br>
-        is being built.
-      </h1>
+    <main class="split-layout pt-32">
+        
+        <div class="glass-panel rounded-[50px] p-16 flex flex-col justify-between">
+            <div>
+                <span class="font-mono text-[10px] tracking-[0.4em] text-white/30 uppercase mb-8 block">The Individual</span>
+                <h1 class="text-6xl font-extrabold text-refraction mb-10 italic leading-tight">
+                    Architecting <br> the Vision.
+                </h1>
+                
+                <div class="description-text space-y-6">
+                    <p>
+                        Beyond the tools and the code, there is a philosophy of <span class="text-white">intentionality</span>. As a creator, I view the digital landscape as a canvas for silence and structure. My journey is not just about building websites; it is about defining how humans interact with depth and light in a virtual space.
+                    </p>
+                    <p>
+                        I believe that every pixel should serve a purpose, and every interaction should feel like a natural extension of thought. I spend my time exploring the intersection of <span class="text-white">mathematical logic</span> and high-end aesthetics, ensuring that the work I produce today remains timeless tomorrow.
+                    </p>
+                </div>
+            </div>
 
-      <p>
-        A focused space for ideas, experiments, and systems.
-        Minimal by design. Launching soon.
-      </p>
+            <div class="mt-16">
+                <a href="#" class="btn-glow">The Personal Log</a>
+            </div>
+        </div>
 
-      <div class="divider"></div>
+        <div class="glass-panel rounded-[50px] p-16 flex flex-col justify-between">
+            <div>
+                <span class="font-mono text-[10px] tracking-[0.4em] text-white/30 uppercase mb-8 block">The Entity</span>
+                <h1 class="text-6xl font-extrabold text-refraction mb-10 leading-tight uppercase tracking-tighter">
+                    Precision <br> Systems.
+                </h1>
+                
+                <div class="description-text space-y-6">
+                    <p>
+                        The Sekandar brand exists as a <span class="text-white">commercial powerhouse</span> for digital dominance. We don't just design; we engineer ecosystems. Our brand is the vehicle through which we scale vision into reality, providing elite partners with the infrastructure needed to command attention in a crowded market.
+                    </p>
+                    <p>
+                        By combining the "Nexus" design logic with our proprietary <span class="text-white">liquid-glass engine</span>, we create products that don't just function—they fascinate. We are the bridge between raw creative concept and industrial-grade execution, delivering digital luxury that scales.
+                    </p>
+                </div>
+            </div>
+
+            <div class="mt-16">
+                <a href="#" class="btn-glow w-full text-center">Brand Protocol</a>
+            </div>
+        </div>
+
     </main>
 
-    <footer>
-      <span>© 2025 Sekandar</span>
-      <div>
-        <a href="https://github.com/">GitHub</a> ·
-        <a href="https://twitter.com/">Twitter</a>
-      </div>
+    <footer class="py-20 text-center">
+        <p class="font-mono text-[9px] tracking-[0.6em] opacity-20 uppercase">Building the future of digital materiality</p>
     </footer>
 
-  </div>
+    <script>
+        const cursor = document.getElementById('cursor');
+        
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = `${e.clientX - 10}px`;
+            cursor.style.top = `${e.clientY - 10}px`;
+        });
 
+        document.querySelectorAll('a, button, .glass-panel').forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                cursor.style.transform = 'scale(5)';
+                cursor.style.opacity = '0.2';
+            });
+            item.addEventListener('mouseleave', () => {
+                cursor.style.transform = 'scale(1)';
+                cursor.style.opacity = '1';
+            });
+        });
+    </script>
 </body>
 </html>
