@@ -1,63 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sekandar — The Narrative</title>
+    <title>Sekandar — Digital Architect</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;600;800&family=JetBrains+Mono&display=swap" rel="stylesheet" />
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
     <style>
         :root {
             --glass: rgba(255, 255, 255, 0.02);
             --glass-border: rgba(255, 255, 255, 0.08);
-            --liquid-blur: blur(60px);
+            --liquid-blur: blur(40px);
         }
 
         body {
-            background-color: #000;
-            color: #fff;
+            background-color: #050505;
+            color: #ffffff;
             font-family: 'Plus Jakarta Sans', sans-serif;
             margin: 0;
             overflow-x: hidden;
             cursor: none;
         }
 
-        /* LIQUID GLASS ARCHITECTURE */
-        .glass-panel {
+        /* Pure Liquid Glass Class */
+        .glass {
             background: var(--glass);
-            backdrop-filter: var(--liquid-blur) saturate(200%);
-            -webkit-backdrop-filter: var(--liquid-blur) saturate(200%);
+            backdrop-filter: var(--liquid-blur) saturate(180%);
+            -webkit-backdrop-filter: var(--liquid-blur) saturate(180%);
             border: 1px solid var(--glass-border);
-            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.3s ease;
         }
 
-        /* WHITE GLOW BUTTON */
-        .btn-glow {
-            padding: 16px 36px;
-            border-radius: 100px;
-            font-size: 11px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.15);
-            transition: all 0.4s ease;
-            color: white;
-            display: inline-block;
+        .glass:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.04);
         }
 
-        .btn-glow:hover {
-            background: #fff !important;
-            color: #000 !important;
-            box-shadow: 0 0 50px 15px rgba(255, 255, 255, 0.45);
-            transform: translateY(-5px);
-        }
-
-        /* CURSOR */
+        /* Cursor Logic */
         #cursor {
             position: fixed;
-            width: 20px; height: 20px;
+            width: 20px;
+            height: 20px;
             background: #fff;
             border-radius: 50%;
             pointer-events: none;
@@ -66,29 +51,111 @@
             transition: transform 0.15s ease-out;
         }
 
-        .split-layout {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            min-height: 100vh;
-            gap: 24px;
-            padding: 24px;
+        /* Smooth Section Layout */
+        section {
+            padding: 120px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        .text-refraction {
-            background: linear-gradient(180deg, #fff 0%, rgba(255, 255, 255, 0.3) 100%);
+        .text-gradient {
+            background: linear-gradient(180deg, #fff 0%, rgba(255, 255, 255, 0.4) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .description-text {
-            font-size: 1.15rem;
-            line-height: 1.8;
-            color: #888;
-            font-weight: 300;
+        /* Social Dock */
+        .social-dock {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            display: flex;
+            gap: 12px;
+            padding: 12px;
+            border-radius: 24px;
         }
 
-        @media (max-width: 1024px) {
-            .split-layout { grid-template-columns: 1fr; }
+        .social-icon {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 16px;
+            font-size: 20px;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .social-icon:hover {
+            transform: translateY(-8px);
+            background: #fff;
+            color: #000;
+        }
+
+        /* Buttons */
+        .btn-main {
+            padding: 14px 28px;
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s;
+        }
+        
+        /* Glow effect for Connect button */
+        .connect-btn-glow {
+            position: relative;
+            overflow: visible;
+        }
+        
+        .connect-btn-glow::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 100px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .connect-btn-glow:hover::before {
+            opacity: 1;
+            filter: blur(8px);
+        }
+        
+        /* Ultra Modern Visible Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.4));
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.6));
+            border-radius: 10px;
+        }
+        
+        /* Firefox scrollbar */
+        html {
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255, 255, 255, 0.4) rgba(255, 255, 255, 0.03);
         }
     </style>
 </head>
@@ -96,83 +163,167 @@
 
     <div id="cursor"></div>
 
-    <nav class="fixed top-0 w-full z-50 px-10 py-10">
+    <nav class="fixed top-0 w-full z-50 px-6 py-6">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <div class="font-black tracking-[0.5em] text-[11px] opacity-40">SEKANDAR</div>
-            <button onclick="window.open('https://wa.me/971564735275')" class="btn-glow">Inquiry</button>
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg glass flex items-center justify-center font-bold italic">S</div>
+                <span class="tracking-widest text-xs font-bold opacity-70">SEKANDAR.DEV</span>
+            </div>
+            <div class="glass px-8 py-3 rounded-full hidden md:flex gap-8 text-[10px] font-bold uppercase tracking-widest opacity-60">
+                <a href="#work" class="hover:opacity-100 transition">Work</a>
+                <a href="#about" class="hover:opacity-100 transition">About</a>
+                <a href="#contact" class="hover:opacity-100 transition">Contact</a>
+            </div>
+            <button onclick="window.open('https://wa.me/971564735275')" class="bg-white text-black btn-main connect-btn-glow">
+                Connect
+            </button>
         </div>
     </nav>
 
-    <main class="split-layout pt-32">
+    <div class="social-dock glass">
+        <a href="#" class="social-icon glass"><i class="ph ph-instagram-logo"></i></a>
+        <a href="#" class="social-icon glass"><i class="ph ph-twitter-logo"></i></a>
+        <a href="#" class="social-icon glass"><i class="ph ph-linkedin-logo"></i></a>
+        <a href="#" class="social-icon glass"><i class="ph ph-github-logo"></i></a>
+    </div>
+
+    <main class="max-w-7xl mx-auto px-6">
         
-        <div class="glass-panel rounded-[50px] p-16 flex flex-col justify-between">
-            <div>
-                <span class="font-mono text-[10px] tracking-[0.4em] text-white/30 uppercase mb-8 block">The Individual</span>
-                <h1 class="text-6xl font-extrabold text-refraction mb-10 italic leading-tight">
-                    Architecting <br> the Vision.
-                </h1>
-                
-                <div class="description-text space-y-6">
-                    <p>
-                        Beyond the tools and the code, there is a philosophy of <span class="text-white">intentionality</span>. As a creator, I view the digital landscape as a canvas for silence and structure. My journey is not just about building websites; it is about defining how humans interact with depth and light in a virtual space.
-                    </p>
-                    <p>
-                        I believe that every pixel should serve a purpose, and every interaction should feel like a natural extension of thought. I spend my time exploring the intersection of <span class="text-white">mathematical logic</span> and high-end aesthetics, ensuring that the work I produce today remains timeless tomorrow.
-                    </p>
+        <section id="home" class="min-h-screen flex flex-col justify-center">
+            <div class="inline-flex items-center gap-2 mb-8 glass px-4 py-1.5 rounded-full w-fit">
+                <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                <span class="text-[10px] font-mono uppercase tracking-widest opacity-60">Available for projects</span>
+            </div>
+            <h1 class="text-[clamp(3rem,10vw,7.5rem)] font-extrabold leading-[0.9] tracking-tighter text-gradient mb-10">
+                #Sekandar the <br/> DIGITAL FUTURE
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-400 max-w-2xl font-light leading-relaxed">
+                Sekandar is a personal brand focused on building digital products, modern brands, and solutions with long-term vision.
+            </p>
+        </section>
+
+        <section id="work">
+            <div class="max-w-4xl mx-auto text-center py-20">
+                <h2 class="text-5xl font-bold tracking-tighter mb-8">Sekandar Digital</h2>
+                <p class="text-xl text-gray-400 leading-relaxed max-w-3xl mx-auto">
+                    We are a forward-thinking digital studio crafting immersive experiences at the intersection of design and technology. 
+                    Our approach combines aesthetic excellence with technical innovation to deliver solutions that resonate with audiences 
+                    and drive measurable results. From concept to deployment, we transform ideas into compelling digital realities.
+                </p>
+            </div>
+        </section>
+
+        <section id="about">
+            <div class="glass rounded-[48px] overflow-hidden group relative">
+                <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee" class="w-full h-[600px] object-cover opacity-50 grayscale group-hover:grayscale-0 transition-all duration-700" alt="Materiality">
+                <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>
+                <div class="absolute bottom-12 left-12">
+                    <p class="font-mono text-xs opacity-50 uppercase tracking-[0.3em] mb-4">Case Study</p>
+                    <h3 class="text-4xl md:text-6xl font-extrabold tracking-tighter mb-8">Sekandar — <br/>Digital Innovation.</h3>
+                    <button class="glass btn-main hover:bg-white hover:text-black" onclick="window.open('https://project.sekandar.dev')">View Project</button>
                 </div>
             </div>
+        </section>
 
-            <div class="mt-16">
-                <a href="#" class="btn-glow">The Personal Log</a>
+        <section id="contact" class="text-center py-40 border-none">
+            <h2 class="text-6xl md:text-9xl font-extrabold tracking-tighter text-gradient mb-12 italic">LET'S TALK.</h2>
+            <p class="text-gray-500 mb-12 max-w-xl mx-auto">Whether you have a question or a project in mind, my inbox is always open for visionaries.</p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <button onclick="window.open('https://about.sekandar.dev')" class="glass btn-main px-12 py-6">About</button>
+                <button onclick="window.open('https://wa.me/971564735275')" class="bg-white text-black btn-main px-12 py-6">WhatsApp</button>
             </div>
-        </div>
-
-        <div class="glass-panel rounded-[50px] p-16 flex flex-col justify-between">
-            <div>
-                <span class="font-mono text-[10px] tracking-[0.4em] text-white/30 uppercase mb-8 block">The Entity</span>
-                <h1 class="text-6xl font-extrabold text-refraction mb-10 leading-tight uppercase tracking-tighter">
-                    Precision <br> Systems.
-                </h1>
-                
-                <div class="description-text space-y-6">
-                    <p>
-                        The Sekandar brand exists as a <span class="text-white">commercial powerhouse</span> for digital dominance. We don't just design; we engineer ecosystems. Our brand is the vehicle through which we scale vision into reality, providing elite partners with the infrastructure needed to command attention in a crowded market.
-                    </p>
-                    <p>
-                        By combining the "Nexus" design logic with our proprietary <span class="text-white">liquid-glass engine</span>, we create products that don't just function—they fascinate. We are the bridge between raw creative concept and industrial-grade execution, delivering digital luxury that scales.
-                    </p>
-                </div>
-            </div>
-
-            <div class="mt-16">
-                <a href="#" class="btn-glow w-full text-center">Brand Protocol</a>
-            </div>
-        </div>
+        </section>
 
     </main>
 
-    <footer class="py-20 text-center">
-        <p class="font-mono text-[9px] tracking-[0.6em] opacity-20 uppercase">Building the future of digital materiality</p>
+    <footer class="py-20 text-center opacity-30 text-[10px] font-mono tracking-[0.5em] uppercase">
+        © 2025 Sekandar Brand — All Rights Reserved
     </footer>
 
     <script>
         const cursor = document.getElementById('cursor');
         
+        // Smooth Cursor Movement
         document.addEventListener('mousemove', (e) => {
-            cursor.style.left = `${e.clientX - 10}px`;
-            cursor.style.top = `${e.clientY - 10}px`;
+            cursor.style.transform = `translate3d(${e.clientX - 10}px, ${e.clientY - 10}px, 0)`;
         });
 
-        document.querySelectorAll('a, button, .glass-panel').forEach(item => {
-            item.addEventListener('mouseenter', () => {
-                cursor.style.transform = 'scale(5)';
-                cursor.style.opacity = '0.2';
+        // Cursor Scaling on interactables
+        const links = document.querySelectorAll('a, button, .glass');
+        links.forEach(link => {
+            link.addEventListener('mouseenter', () => {
+                cursor.style.transform += ' scale(4)';
+                cursor.style.opacity = '0.3';
             });
-            item.addEventListener('mouseleave', () => {
-                cursor.style.transform = 'scale(1)';
+            link.addEventListener('mouseleave', () => {
+                cursor.style.transform = cursor.style.transform.replace(' scale(4)', '');
                 cursor.style.opacity = '1';
             });
         });
+        
+        // Auto-scroll functionality
+        let scrollTimeout;
+        let isAutoScrolling = true;
+        
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'start',
+                    inline: 'nearest'
+                });
+            }
+        }
+        
+        function startAutoScroll() {
+            // Scroll to home initially
+            setTimeout(() => {
+                if (isAutoScrolling) {
+                    scrollToSection('work');
+                    
+                    // After 2 seconds, scroll to about
+                    setTimeout(() => {
+                        if (isAutoScrolling) {
+                            scrollToSection('about');
+                            
+                            // After 2 seconds, scroll to contact
+                            setTimeout(() => {
+                                if (isAutoScrolling) {
+                                    scrollToSection('contact');
+                                    
+                                    // After 2 seconds, scroll back to home
+                                    setTimeout(() => {
+                                        if (isAutoScrolling) {
+                                            scrollToSection('home');
+                                            
+                                            // Stop auto-scrolling after completing the cycle
+                                            isAutoScrolling = false;
+                                        }
+                                    }, 2000);
+                                }
+                            }, 2000);
+                        }
+                    }, 2000);
+                }
+            }, 2000);
+        }
+        
+        // Start auto-scrolling when page loads
+        window.addEventListener('load', startAutoScroll);
+        
+        // Stop auto-scrolling if user manually scrolls
+        window.addEventListener('wheel', () => {
+            isAutoScrolling = false;
+            clearTimeout(scrollTimeout);
+        });
+        
+        // Stop auto-scrolling if user clicks anywhere
+        document.addEventListener('click', () => {
+            isAutoScrolling = false;
+            clearTimeout(scrollTimeout);
+        });
     </script>
+    <div class="w-full h-0.5 bg-white opacity-60 mt-20"></div>
 </body>
 </html>
